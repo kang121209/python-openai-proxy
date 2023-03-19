@@ -1,17 +1,12 @@
 #-*-coding:utf-8-*-
-from dotenv import load_dotenv  # pip package python-dotenv
 import os
 from flask import request, Response
 from flask_cors import CORS
-from flask_proxy import Proxy
 import requests  # pip package requests
 app = Flask(__name__)
 CORS(app)
 
-load_dotenv()
-API_HOST = os.environ.get('API_HOST'); 
-if not API_HOST:
-	API_HOST='https://api.openai.com'
+API_HOST='https://api.openai.com'
 
 @api.route('/', defaults={'path': ''})  
 @api.route('/<path>')
