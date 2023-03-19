@@ -1,8 +1,10 @@
 #-*-coding:utf-8-*-
 from flask import Flask, request, Response
 import requests
-
+from flask_cors import CORS
 app = Flask(__name__)
+
+CORS(app, supports_credentials=True)
 
 TARGET_HOST='https://api.openai.com'
 
@@ -21,7 +23,8 @@ def proxy(path):
 
     response_headers = [(name, value) for (name, value) in response.raw.headers.items()]
     response_headers.append(('Access-Control-Allow-Origin', '*'))
-    response_headers.append(('Access-Control-Allow-Methods', '"POST, GET, OPTIONS, DELETE"'))
+    response_headers.append(('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE'))
+    response_headers.append(('Access-Control-Allow-Credentials', 'true'))
 
     response = Response(response.content, response.status_code, response_headers)
 
