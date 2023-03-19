@@ -11,12 +11,6 @@ TARGET_HOST='https://api.openai.com'
 def proxy(path):
     target_url = f'{TARGET_HOST}/{path}'
     headers = {key: value for (key, value) in request.headers if key != 'Host'}
-    method=request.method
-    url=target_url
-    data=request.get_data()
-    params=request.args
-    cookies=request.cookies
-    print(target_url,headers,method,url,data,params,cookies)
     response = requests.request(method=request.method,
         url=target_url,
         data=request.get_data(),
