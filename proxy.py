@@ -9,12 +9,12 @@ CORS(app)
 API_HOST='https://api.openai.com'
 
 @app.route('/', defaults={'path': ''})  
-@app.route('/<path>')
+@app.route('/path:path')
 def redirect_to_API_HOST(path): 
     print(path,1111111111111)
-    method          = req.method
+    method          = 'POST'
     url             = req.url.replace(req.host_url, f'{API_HOST}/')
-    headers         = {k:v for k,v in req.headers if k.lower() == 'host'}
+    #headers         = {k:v for k,v in req.headers if k.lower() == 'host'}
     data            = req.get_data()
     cookies         = req.cookies
     print('wwwwwwwwwwwwwww',method,url,headers,data,cookies)
