@@ -9,7 +9,6 @@ CORS(app)
 API_HOST='https://api.openai.com/'
 OPENAI_API_KEY='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'
 
-@app.route('/', defaults={'path': ''})  
 @app.route('/path:path')
 def redirect_to_API_HOST(path): 
     url = 'https://api.openai.com/v1/chat/completions'
