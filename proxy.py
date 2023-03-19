@@ -11,6 +11,7 @@ API_HOST='https://api.openai.com'
 @app.route('/', defaults={'path': ''})  
 @app.route('/<path>')
 def redirect_to_API_HOST(path): 
+    print(path,1111111111111)
     res = requests.request(  
         method          = request.method,
         url             = request.url.replace(request.host_url, f'{API_HOST}/'),
@@ -27,8 +28,10 @@ def redirect_to_API_HOST(path):
         if k.lower() not in excluded_headers
     ]
     #endregion exlcude some keys in :res response
-
+    print(22222,res.content,res.status_code,headers)
     response = Response(res.content, res.status_code, headers)
     return response
-
     
+if __name__ == '__main__':
+    
+    app.run(debug=True)
