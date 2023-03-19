@@ -15,7 +15,7 @@ def redirect_to_API_HOST(path):
     res = requests.request(  
         method          = request.method,
         url             = request.url.replace(request.host_url, f'{API_HOST}/'),
-        headers         = {k:v for k,v in request.headers if k.lower() == 'host'},
+        #headers         = {k:v for k,v in request.headers if k.lower() == 'host'},
         data            = request.get_data(),
         cookies         = request.cookies,
         allow_redirects = False,
