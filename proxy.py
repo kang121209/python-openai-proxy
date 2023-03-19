@@ -22,9 +22,9 @@ def proxy(path):
         allow_redirects=False)
 
     response_headers = [(name, value) for (name, value) in response.raw.headers.items()]
-    response_headers.append(('Access-Control-Allow-Origin', '*'))
-    response_headers.append(('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE'))
-    response_headers.append(('Access-Control-Allow-Credentials', 'true'))
+    #response_headers.append(('Access-Control-Allow-Origin', '*'))
+    #response_headers.append(('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE'))
+    #response_headers.append(('Access-Control-Allow-Credentials', 'true'))
 
     response = Response(response.content, response.status_code, response_headers)
 
