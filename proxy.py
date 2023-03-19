@@ -21,6 +21,7 @@ def proxy(path):
 
     response_headers = [(name, value) for (name, value) in response.raw.headers.items()]
     response_headers.append(('Access-Control-Allow-Origin', '*'))
+    response_headers.append(('Access-Control-Allow-Methods', '"POST, GET, OPTIONS, DELETE"'))
 
     response = Response(response.content, response.status_code, response_headers)
 
