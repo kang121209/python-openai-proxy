@@ -6,15 +6,15 @@ import requests  # pip package requests
 app = Flask(__name__)
 CORS(app)
 
-API_HOST='https://api.openai.com'
+API_HOST='https://api.openai.com/'
 
 @app.route('/', defaults={'path': ''})  
 @app.route('/path:path')
 def redirect_to_API_HOST(path): 
     print(path,1111111111111)
     method          = 'POST'
-    url             = req.url.replace(req.host_url, f'{API_HOST}/')
-    #headers         = {k:v for k,v in req.headers if k.lower() == 'host'}
+    url             = API_HOST + path
+    headers         = {"Authorization" : "Bearer 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","Content-Type: application/json"}
     data            = req.get_data()
     cookies         = req.cookies
     print('wwwwwwwwwwwwwww',method,url,headers,data,cookies)
