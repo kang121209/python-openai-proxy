@@ -29,7 +29,6 @@ def redirect_to_API_HOST(path):
         url,
         headers,
         data,
-        cookies,
         allow_redirects = False,
     )
 
