@@ -1,6 +1,6 @@
 #-*-coding:utf-8-*-
 import os
-from flask import Flask,request, Response
+from flask import Flask,request, Response,api
 from flask_cors import CORS
 import requests  # pip package requests
 app = Flask(__name__)
