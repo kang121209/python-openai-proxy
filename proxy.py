@@ -1,6 +1,6 @@
 #-*-coding:utf-8-*-
 import os
-from flask import Flask,request, Response,api
+from flask import Flask,request, Response
 from flask_cors import CORS
 import requests  # pip package requests
 app = Flask(__name__)
@@ -8,8 +8,8 @@ CORS(app)
 
 API_HOST='https://api.openai.com'
 
-@api.route('/', defaults={'path': ''})  
-@api.route('/<path>')
+@app.route('/', defaults={'path': ''})  
+@app.route('/<path>')
 def redirect_to_API_HOST(path): 
     res = requests.request(  
         method          = request.method,
