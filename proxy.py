@@ -11,13 +11,18 @@ API_HOST='https://api.openai.com/'
 @app.route('/', defaults={'path': ''})  
 @app.route('/path:path')
 def redirect_to_API_HOST(path): 
+    url = 'https://api.openai.com/v1/chat/completions'
+    headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer {}'.format(OPENAI_API_KEY)
+    }
+    data = {
+     'model': 'gpt-3.5-turbo',
+     'messages': [{'role': 'user', 'content': 'Hello!'}]
+    }
     print(path,1111111111111)
     method          = 'POST'
-    url             = API_HOST + path
-    headers         = {"Authorization" : "Bearer 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","Content-Type: application/json"}
-    data            = req.get_data()
-    cookies         = req.cookies
-    print('wwwwwwwwwwwwwww',method,url,headers,data,cookies)
+    print('wwwwwwwwwwwwwww',method,url,headers,data)
     res = requests.request(  
         method,
         url,
