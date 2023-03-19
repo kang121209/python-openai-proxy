@@ -1,47 +1,18 @@
 #-*-coding:utf-8-*-
-import os
-from flask import Flask,request as req, Response
-from flask_cors import CORS
-import requests  # pip package requests
+from flask import Flask
+from flask_http_proxy_middleware import HTTPProxyMiddleware
+
 app = Flask(__name__)
-CORS(app)
+app.config["PROXY_MIDDLEWARE_URL"] = "https://api.openai.com"
+app.config["PROXY_MIDDLEWARE_HEADERS"] = {"Access-Control-Allow-Origin": "*"}
+app.config["PROXY_MIDDLEWARE_HOSTS"] = ("*",)
 
-API_HOST='https://api.openai.com/'
-OPENAI_API_KEY='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'
+http_proxy_middleware = HTTPProxyMiddleware(app)
 
-@app.route('/path:path')
-def redirect_to_API_HOST(path): 
-    url = 'https://api.openai.com/v1/chat/completions'
-    headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer {}'.format(OPENAI_API_KEY)
-    }
-    data = {
-     'model': 'gpt-3.5-turbo',
-     'messages': [{'role': 'user', 'content': 'Hello!'}]
-    }
-    print(path,1111111111111)
-    method          = 'POST'
-    print('wwwwwwwwwwwwwww',method,url,headers,data)
-    res = requests.request(  
-        method,
-        url,
-        headers,
-        data,
-        allow_redirects = False,
-    )
+@app.route("/")
+def proxy():
+    return http_proxy_middleware.handle_request()
 
-    #region exlcude some keys in :res response
-    excluded_headers = ['content-encoding', 'content-length', 'transfer-encoding', 'connection']  #NOTE we here exclude all "hop-by-hop headers" defined by RFC 2616 section 13.5.1 ref. https://www.rfc-editor.org/rfc/rfc2616#section-13.5.1
-    headers          = [
-        (k,v) for k,v in res.raw.headers.items()
-        if k.lower() not in excluded_headers
-    ]
-    #endregion exlcude some keys in :res response
-    print(22222,res.content,res.status_code,headers)
-    response = Response(res.content, res.status_code, headers)
-    return response
-    
-if __name__ == '__main__':
-    
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(port=9000)
+
